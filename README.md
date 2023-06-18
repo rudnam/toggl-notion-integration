@@ -6,7 +6,8 @@ Modified Notion integration for Toggl's browser extension to automatically fill 
 
 ## Notes
 
-- Use inspect element to get the CSS Selector of desired property and change `PROJECT_NAME_CSS_PATH` and/or `TAGS_CSS_PATH`'s values accordingly.
+- Replace `PROJECT_NAME_PROPERTY` and `TAGS_PROPERTY` with property names to get the values from.
+- Has only been tested for properties of type `tag` so far.
 - Currently does not work for multiple tags.
 
 ## Screenshot

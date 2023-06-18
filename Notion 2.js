@@ -5,8 +5,8 @@
  */
 'use strict';
 
-const PROJECT_NAME_CSS_PATH = 'div.notion-scroller:nth-child(1) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(8) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)';
-const TAGS_CSS_PATH = 'div.notion-scroller:nth-child(1) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(9) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)';
+const PROJECT_NAME_PROPERTY = 'Category tag'
+const TAGS_PROPERTY = 'Course tag'
 
 function createWrapper (link) {
   const wrapper = document.createElement('div');
@@ -29,13 +29,33 @@ togglbutton.render(
     }
 
     function getProjectName () {
-      const projectNameElem = elem.querySelector(PROJECT_NAME_CSS_PATH.replace('.notion-scroller:nth-child(1)','.notion-scroller:nth-child(3)'));
-      return projectNameElem ? projectNameElem.textContent.trim() : '';
+      try {
+        const xpathRes = document.evaluate(`//div[text()="${PROJECT_NAME_PROPERTY}"]`, document, null, XPathResult.ANY_TYPE, null);
+        const propertyNameElem = xpathRes.iterateNext();
+        const projectNameElem = propertyNameElem.parentNode.parentNode.parentNode.nextElementSibling;
+        return projectNameElem && projectNameElem.textContent.trim() != 'Empty' ? projectNameElem.textContent.trim() : '';
+      } catch (error) {
+        if (error instanceof TypeError && error.message.includes("propertyNameElem is null")) {
+          // ignore error
+        } else {
+          console.log(error)
+        }
+      }
     }
 
     function getTags () {
-      const tagsElem = elem.querySelector(TAGS_CSS_PATH.replace('.notion-scroller:nth-child(1)','.notion-scroller:nth-child(3)'));
-      return tagsElem ? [tagsElem.textContent.trim()] : [''];
+      try {
+        const xpathRes = document.evaluate(`//div[text()="${TAGS_PROPERTY}"]`, document, null, XPathResult.ANY_TYPE, null);
+        const propertyNameElem = xpathRes.iterateNext();
+        const tagsElem = propertyNameElem.parentNode.parentNode.parentNode.nextElementSibling;
+        return tagsElem && tagsElem.textContent.trim() != 'Empty' ? [tagsElem.textContent.trim()] : [''];
+      } catch (error) {
+        if (error instanceof TypeError && error.message.includes("propertyNameElem is null")) {
+          // ignore error
+        } else {
+          console.log(error)
+        }
+      }
     }
 
     const link = togglbutton.createTimerLink({
@@ -90,13 +110,33 @@ togglbutton.render(
     }
 
     function getProjectName () {
-      const projectNameElem = document.querySelector(PROJECT_NAME_CSS_PATH.replace('.notion-scroller:nth-child(3)','.notion-scroller:nth-child(1)'));
-      return projectNameElem ? projectNameElem.textContent.trim() : '';
+      try {
+        const xpathRes = document.evaluate(`//div[text()="${PROJECT_NAME_PROPERTY}"]`, document, null, XPathResult.ANY_TYPE, null);
+        const propertyNameElem = xpathRes.iterateNext();
+        const projectNameElem = propertyNameElem.parentNode.parentNode.parentNode.nextElementSibling;
+        return projectNameElem && projectNameElem.textContent.trim() != 'Empty' ? projectNameElem.textContent.trim() : '';
+      } catch (error) {
+        if (error instanceof TypeError && error.message.includes("propertyNameElem is null")) {
+          // ignore error
+        } else {
+          console.log(error)
+        }
+      }
     }
 
     function getTags () {
-      const tagsElem = document.querySelector(TAGS_CSS_PATH.replace('.notion-scroller:nth-child(3)','.notion-scroller:nth-child(1)'));
-      return tagsElem ? [tagsElem.textContent.trim()] : [''];
+      try {
+        const xpathRes = document.evaluate(`//div[text()="${TAGS_PROPERTY}"]`, document, null, XPathResult.ANY_TYPE, null);
+        const propertyNameElem = xpathRes.iterateNext();
+        const tagsElem = propertyNameElem.parentNode.parentNode.parentNode.nextElementSibling;
+        return tagsElem && tagsElem.textContent.trim() != 'Empty' ? [tagsElem.textContent.trim()] : [''];
+      } catch (error) {
+        if (error instanceof TypeError && error.message.includes("propertyNameElem is null")) {
+          // ignore error
+        } else {
+          console.log(error)
+        }
+      }
     }
 
     const link = togglbutton.createTimerLink({
