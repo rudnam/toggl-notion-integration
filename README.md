@@ -2,7 +2,7 @@
 
 ## Description
 
-Custom integration for Toggl's browser extension that automatically fills the time entry's project and tags based on properties from Notion.
+Modified Notion integration for Toggl's browser extension to automatically fill the time entry's project and tags based on properties from Notion.
 
 ## Notes
 
