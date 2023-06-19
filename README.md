@@ -7,7 +7,7 @@ Modified Notion integration for Toggl's browser extension to automatically fill 
 ## Notes
 
 - Replace `PROJECT_NAME_PROPERTY` and `TAGS_PROPERTY` with property names to get the values from.
-- Has only been tested for properties of type `tag`.
+- Has only been tested for properties of type `multi-select`.
 
 ## Screenshot
 
