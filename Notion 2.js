@@ -5,8 +5,8 @@
  */
 'use strict';
 
-const PROJECT_NAME_PROPERTY = 'Category tag'
-const TAGS_PROPERTY = 'Course tag'
+const PROJECT_NAME_PROPERTY = 'Category'
+const TAGS_PROPERTY = 'Tags'
 
 function createWrapper (link) {
   const wrapper = document.createElement('div');
@@ -46,9 +46,19 @@ togglbutton.render(
     function getTags () {
       try {
         const xpathRes = document.evaluate(`//div[text()="${TAGS_PROPERTY}"]`, document, null, XPathResult.ANY_TYPE, null);
-        const propertyNameElem = xpathRes.iterateNext();
-        const tagsElem = propertyNameElem.parentNode.parentNode.parentNode.nextElementSibling;
-        return tagsElem && tagsElem.textContent.trim() != 'Empty' ? [tagsElem.textContent.trim()] : [''];
+        let currElem = xpathRes.iterateNext();
+        while (currElem) {
+          if (currElem.offsetParent.classList.contains('notion-scroller')) {
+            break;
+          }
+          currElem = xpathRes.iterateNext();
+        }
+        const propertyNameElem = currElem;
+        const tagsElem = propertyNameElem.parentNode.parentNode.parentNode.nextElementSibling.firstChild.firstChild.firstChild.firstChild;
+        const tags = Array.from(tagsElem.children)
+                      .map(child => child.textContent.trim())
+                      .filter(textContent => textContent !== 'Empty');
+        return tags;
       } catch (error) {
         if (error instanceof TypeError && error.message.includes("propertyNameElem is null")) {
           // ignore error
@@ -127,9 +137,19 @@ togglbutton.render(
     function getTags () {
       try {
         const xpathRes = document.evaluate(`//div[text()="${TAGS_PROPERTY}"]`, document, null, XPathResult.ANY_TYPE, null);
-        const propertyNameElem = xpathRes.iterateNext();
-        const tagsElem = propertyNameElem.parentNode.parentNode.parentNode.nextElementSibling;
-        return tagsElem && tagsElem.textContent.trim() != 'Empty' ? [tagsElem.textContent.trim()] : [''];
+        let currElem = xpathRes.iterateNext();
+        while (currElem) {
+          if (currElem.offsetParent.classList.contains('notion-scroller')) {
+            break;
+          }
+          currElem = xpathRes.iterateNext();
+        }
+        const propertyNameElem = currElem;
+        const tagsElem = propertyNameElem.parentNode.parentNode.parentNode.nextElementSibling.firstChild.firstChild.firstChild.firstChild;
+        const tags = Array.from(tagsElem.children)
+                      .map(child => child.textContent.trim())
+                      .filter(textContent => textContent !== 'Empty');
+        return tags;
       } catch (error) {
         if (error instanceof TypeError && error.message.includes("propertyNameElem is null")) {
           // ignore error
